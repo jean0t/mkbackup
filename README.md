@@ -39,7 +39,6 @@ mkbackup is compatible with both **zsh** and **bash** shells, so you can use it 
 ------------
 
 * To backup multiple directories or files, separate them with spaces: `./mkbackup.sh /dir1 /dir2 /file1 /file2`
-* To exclude certain files or directories from the backup, use the `-e` option: `./mkbackup.sh -e *.tmp /path/to/directory`
 
 **License 📜**
 ---------
