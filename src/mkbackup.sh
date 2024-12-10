@@ -28,10 +28,10 @@
 #==========================================================| GLOBAL VARIABLES
 
 VERSION='1.0'
-OUT_DIR="$HOME" 	# the backup will be sent to the home of the user 
+OUT_DIR="$HOME" 	# the backup will be sent to the home of the user
 NAME='backup.tar'
 
-#==========================================================| FUNCTIONS 
+#==========================================================| FUNCTIONS
 
 function help() {
 	cat <<'EOF'
@@ -42,18 +42,19 @@ Usage: ./mkbackup [OPTIONS | FILES]
 
 	example: ./mkbackup "~/test_file.txt" "./my_file.pdf"
 
-	
+
 	OPTIONS:
-		-h | --help	Shows the usage of the program
+		-h | --help 	Shows the usage of the program
 		-v | --version	Shows the current version
+		-n | --name 	Defines the name of the output file
 EOF
 }
 
 function make_backup() {
-	
+
 	# Verify if all the arguments points to valid files, otherwise exits with an error code
 	[ "$#" -eq "0" ] && { echo 'You must pass a command or files to backup' ; exit 1 ; }
-	
+
 	for i in "$@"; do
 		if [ -e "$i" ]; then
 			continue
@@ -75,19 +76,25 @@ function make_backup() {
 }
 
 #==========================================================| START
+while [ -n "$1" ]; do
+	case "$1" in
 
-case "$1" in
-	
-	-h|--help)
-		help
-	;;
+		-h|--help)
+			help
+		;;
 
-	-v|--version)
-		echo "Version $VERSION"
-	;;
+		-v|--version)
+			echo "Version $VERSION"
+		;;
 
-	*)
-		make_backup "$@"
-	;;
+		-n|--name)
+			NAME="${2:-backup.tar}"
+			shift 2
+		;;
 
-esac
+		*)
+			make_backup "$@"
+		;;
+
+	esac
+done

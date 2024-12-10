@@ -58,4 +58,5 @@ If you'd like to contribute to mkbackup, please open a pull request on GitHub. I
 **To-Do List 📝**
 ------------
 
-- [ ] Add option to select a custom output file name
+- [x] Add option to select a custom output file name
+- [ ] Change the directory that received the backup file
