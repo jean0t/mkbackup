@@ -31,7 +31,7 @@
 
 #==========================================================| GLOBAL VARIABLES
 
-VERSION='1.0'
+VERSION='1.1'
 OUT_DIR="$HOME" 	# the backup will be sent to the home of the user
 NAME='backup.tar'
 
