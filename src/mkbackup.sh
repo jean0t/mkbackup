@@ -19,6 +19,10 @@
 #		creating a backup in the $HOME directory
 #		that can be sent anywhere
 #
+#	- 1.1:
+#		Modify the name of the backup file instead
+#		of the standard one "backup.tar"
+#
 #==========================================================#
 
 
