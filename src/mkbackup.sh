@@ -23,6 +23,18 @@
 #		Modify the name of the backup file instead
 #		of the standard one "backup.tar"
 #
+#	- 1.2:
+#		Don't preserve permissions, which means
+#		when extracted it will be accessible
+#		right away
+#
+#		The compression isn't done separately
+#		but by the tar itself
+#		(less command lines = more readable)
+#
+#		Corrected infinite loop when used
+#		other options
+#
 #==========================================================#
 
 
@@ -31,7 +43,7 @@
 
 #==========================================================| GLOBAL VARIABLES
 
-VERSION='1.1'
+VERSION='1.2'
 OUT_DIR="$HOME" 	# the backup will be sent to the home of the user
 NAME='backup.tar'
 
@@ -39,7 +51,7 @@ NAME='backup.tar'
 
 function help() {
 	cat <<'EOF'
-Usage: ./mkbackup [OPTIONS | FILES]
+Usage: ./mkbackup [OPTIONS] [FILES]
 
 	Check the help menu with -h or send the files that will
 	be used for backup separated with space and inside (")
@@ -70,11 +82,7 @@ function make_backup() {
 	done
 
 	echo -e "\e[39;1mCollecting the files\e[0m"
-	tar cf "${OUT_DIR:-.}/${NAME}" "$@" 2>&-
-	echo -e "\e[36;1mFiles organized in a tarball successfully\e[0m\n\e[39;1mInitializing the compression\e[0m"
-
-	gzip --best "${OUT_DIR:-.}/${NAME}" 2>&- # Preferable the --best over -9 due to legibility
-
+	tar --no-same-permissions cpzf "${OUT_DIR:-.}/${NAME}.tar.gz" "$@" &>/dev/null
 	echo -e "\e[36;1mProcess completed\e[0m\nYou can find your backup in:\n${OUT_DIR:-.}/${NAME}"
 
 }
@@ -85,10 +93,12 @@ while [ -n "$1" ]; do
 
 		-h|--help)
 			help
+			shift
 		;;
 
 		-v|--version)
 			echo "Version $VERSION"
+			shift
 		;;
 
 		-n|--name)
