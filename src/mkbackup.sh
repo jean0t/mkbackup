@@ -45,7 +45,7 @@
 
 VERSION='1.2'
 OUT_DIR="$HOME" 	# the backup will be sent to the home of the user
-NAME='backup.tar'
+NAME='backup.tar.gz'
 
 #==========================================================| FUNCTIONS
 
@@ -82,7 +82,7 @@ function make_backup() {
 	done
 
 	echo -e "\e[39;1mCollecting the files\e[0m"
-	tar --no-same-permissions cpzf "${OUT_DIR:-.}/${NAME}.tar.gz" "$@" &>/dev/null
+	tar --no-same-permissions -cpzf "${OUT_DIR:-.}/${NAME}" "$@" 1>/dev/null 2>&1
 	echo -e "\e[36;1mProcess completed\e[0m\nYou can find your backup in:\n${OUT_DIR:-.}/${NAME}"
 
 }
@@ -108,6 +108,7 @@ while [ -n "$1" ]; do
 
 		*)
 			make_backup "$@"
+			break
 		;;
 
 	esac
