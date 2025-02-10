@@ -35,6 +35,9 @@
 #		Corrected infinite loop when used
 #		other options
 #
+# - 1.3:
+#   Standardized output directory.
+#
 #==========================================================#
 
 
@@ -43,9 +46,13 @@
 
 #==========================================================| GLOBAL VARIABLES
 
-VERSION='1.2'
-OUT_DIR="$HOME" 	# the backup will be sent to the home of the user
+VERSION='1.3'
+OUT_DIR="$HOME/.backup_files" 	# the backup will be sent to the home of the user
 NAME='backup.tar.gz'
+
+#==========================================================| TESTS
+
+[ ! -d $OUT_DIR ] && mkdir -p "$OUT_DIR"
 
 #==========================================================| FUNCTIONS
 
